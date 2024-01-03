@@ -1,0 +1,30 @@
+@host = http://localhost:8080
+
+### Get all médicos
+
+GET {{host}}/medicos
+
+### Get médico by id
+
+GET {{host}}/medicos/1
+
+### Create médico
+
+POST {{host}}/medicos
+Accept-Language: pt-br
+Content-Type: application/json
+
+{
+  "nome": "John",
+  "email": "john@email.com",
+  "telefone": "2190909090909",
+  "crm": "12345",
+  "especialidade": "ORTOPEDIA",
+  "endereco": {
+    "logradouro": "rua",
+    "bairro": "Jockey",
+    "cep": "24743160",
+    "cidade": "São Gonçalo",
+    "uf": "RJ"
+  }
+}
