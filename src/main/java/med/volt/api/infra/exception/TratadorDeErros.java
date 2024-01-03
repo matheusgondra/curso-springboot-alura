@@ -1,4 +1,4 @@
-package med.volt.api.infra;
+package med.volt.api.infra.exception;
 
 import java.util.List;
 
