@@ -28,3 +28,13 @@ Content-Type: application/json
     "uf": "RJ"
   }
 }
+
+### Login
+
+POST {{host}}/login
+Content-Type: application/json
+
+{
+	"login": "ana.souza@voll.med",
+	"senha": "123456"
+}
