@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 import med.volt.api.domain.usuario.DadosAutenticacao;
+import med.volt.api.domain.usuario.Usuario;
+import med.volt.api.infra.security.DadosJWT;
+import med.volt.api.infra.security.TokenService;
 
 @Controller
 @RequestMapping("/login")
@@ -18,11 +21,14 @@ public class AuthenticationController {
 	@Autowired
 	private AuthenticationManager manager;
 
-	@PostMapping
-	public ResponseEntity<Void> efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
-		var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-		var authentication = manager.authenticate(token);
+	@Autowired
+	private TokenService tokenService;
 
-		return ResponseEntity.ok().build();
+	@PostMapping
+	public ResponseEntity<DadosJWT> efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
+		var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+		var authentication = manager.authenticate(authenticationToken);
+		var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+		return ResponseEntity.ok(new DadosJWT(tokenJWT));
 	}
 }
